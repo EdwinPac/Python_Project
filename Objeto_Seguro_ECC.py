@@ -5,17 +5,16 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG, format="\n%(asctime)s - %(message)s")
 
-
+#  Fase 1: Definimos la clase
 class ObjetoSeguro:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
         self.__private_key = generate_eth_key()
         self.__private_key_hex = self.__private_key.to_hex()
-        print(self.__private_key_hex)
+        #  print(self.__private_key_hex)
 
     #  Decorador que hace que una función actúe como una propiedad
     @property
-    def key_pub(self) -> str:
+    def gen_llaves(self):
         return self.__private_key.public_key.to_hex()
 
     def __base85_decode(self, message: str) -> bytes:
@@ -42,8 +41,10 @@ class ObjetoSeguro:
 
     def guardar_msj(self, plain_text: str) -> str:
         python_project = open("archivo.txt", "a")
-        python_project.write(plain_text)
+        python_project.write(plain_text + '\n')
         python_project.close()
+        return plain_text
+
 
 
 
