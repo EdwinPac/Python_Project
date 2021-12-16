@@ -1,35 +1,36 @@
 from Objeto_Seguro_ECC import ObjetoSeguro
-from Objeto_Seguro_ECC import encrypt, decrypt, generate_eth_key
+import binascii
 
 
-#  Fase 2: Generación de objetos.
-Edwin = ObjetoSeguro()
-Karen = ObjetoSeguro()
+if __name__ == '__main__':
+    edwin = ObjetoSeguro("Edwin")
+    karen = ObjetoSeguro('Karen')
 
-#  Fase 3: Utilización de los objetos.
-key_ed = Edwin.gen_llaves
-key_ka = Karen.gen_llaves
+    karen.pub_key = edwin.llave_publica()
+    edwin.pub_key = karen.llave_publica()
 
-msj_ed = input(str("Edwin dice: "))
+    msj_ed = "Hola Karen! Soy Edwin, ¿Cómo estás?. "
+    print("Saludo:", msj_ed)
+    msj_cif = edwin.cifrar_msj(edwin.pub_key, msj_ed)
+    print("Saludo cifrado de Edwin:")
+    #edwin.saludar(binascii.hexlify(msj_cif))
+    #edwin.almacenar_msj(msj_ed)
 
+    #print("Descifrar saludo")
+    #msj_des = karen.descifrar_msj(msj_cif)
+    #print("Saludo descifrado:", msj_des)
+    #msj_dec = karen.decodificar64(msj_des)
+    #print("Mensaje decodificado:", msj_dec)
 
-m_c_e = Edwin.saludar(msj_ed, key_ka)
-Edwin.guardar_msj(msj_ed)
-print("Mensaje cifrado: ", m_c_e)
-Karen.responder(m_c_e)
-msj_ka = input(str("karen dice: "))
-m_c_k = Karen.saludar(msj_ka, key_ed)
-Karen.guardar_msj(msj_ka)
-print("Mensaje cifrado: ", m_c_k)
+    #print("Responder saludo")
 
-#  Edwin.responder(Karen.responder(m_c_e))
-#  Edwin.guardar_msj(msj_ed)
-
-
-
-
-
-
-
+    #msj_resp_cif = karen.responder(msj_dec)
+    #print("Mensaje respuesta cifrada:", binascii.hexlify(msj_resp_cif))
+    #edwin.esperar_respuesta(msj_resp_cif)
+    #print("Descifrar respuesta")
+    #resp_desci = edwin.descifrar_msj(msj_resp_cif)
+    #print("Respuesta descifrada:", resp_desci)
+    #resp_deco = edwin.decodificar64(resp_desci)
+    #print("Respuesta decodificada:", resp_deco)
 
 
